@@ -25,11 +25,12 @@ services:
 
       # Specify the Label Studio URL and API key to access
       # uploaded, local storage and cloud storage files.
-      # Do not use 'localhost' as it does not work within Docker containers.
+      # Do not use 'localhost' or '127.0.0.1' as it does not work within Docker containers.
       # Use prefix 'http://' or 'https://' for the URL always.
       # Determine the actual IP using 'ifconfig' (Linux/Mac) or 'ipconfig' (Windows).
-      - LABEL_STUDIO_URL=
-      - LABEL_STUDIO_API_KEY=
+      # or you can try http://host.docker.internal:<label-studio-port> if you run LS on the same machine
+      - LABEL_STUDIO_HOST=https://app.humansignal.com
+      - LABEL_STUDIO_API_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTc3MTYxMzIxMiwiaWF0IjoxNzcwNzQ5MjEyLCJqdGkiOiIyZmU0NWVhZDhiMzU0Yjg3ODAxMTViNDc1YzBlMGUwZiIsInVzZXJfaWQiOiIzMzgzMyJ9.oXz-NFIpFSfjZSHxAKUzVcD-6ha2rZmycxg8uIgIHW0
 
       # YOLO parameters
 
@@ -42,6 +43,8 @@ services:
       - MODEL_SCORE_THRESHOLD=0.5
       # Model root directory, where the YOLO model files are stored
       - MODEL_ROOT=/app/models
+    extra_hosts:
+      - "host.docker.internal:host-gateway"  # for macos and unix      
     ports:
       - "9090:9090"
     volumes:
