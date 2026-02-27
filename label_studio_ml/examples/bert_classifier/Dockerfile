@@ -28,6 +28,10 @@ COPY requirements-base.txt .
 RUN --mount=type=cache,target=${PIP_CACHE_DIR},sharing=locked \
     pip install -r requirements-base.txt
 
+# install PyTorch (CPU-only to keep image size small)
+RUN --mount=type=cache,target=${PIP_CACHE_DIR},sharing=locked \
+    pip install torch==2.2.0 --index-url https://download.pytorch.org/whl/cpu
+
 # install custom requirements
 COPY requirements.txt .
 RUN --mount=type=cache,target=${PIP_CACHE_DIR},sharing=locked \
