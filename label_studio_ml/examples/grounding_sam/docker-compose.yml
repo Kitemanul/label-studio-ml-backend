@@ -49,7 +49,7 @@ services:
       - "./data/ml-backend:/data"
       - "./prompt.txt:/app/prompt.txt"
       - ./dino.py:/app/dino.py
-      # 挂载本地模型文件（路径改为你实际存放的位置）
-      - /你的路径/groundingdino_swint_ogc.pth:/GroundingDINO/weights/groundingdino_swint_ogc.pth:ro
-      - /你的路径/sam_vit_h_4b8939.pth:/app/sam_vit_h_4b8939.pth:ro
-      - /你的路径/huggingface_cache:/root/.cache/huggingface:ro
+      # 挂载本地模型文件（相对路径基于 docker-compose.yml 所在目录）
+      - ./groundingdino_swint_ogc.pth:/GroundingDINO/weights/groundingdino_swint_ogc.pth:ro
+      - ./sam_vit_h_4b8939.pth:/app/sam_vit_h_4b8939.pth:ro
+      - ./huggingface_cache:/root/.cache/huggingface:ro
