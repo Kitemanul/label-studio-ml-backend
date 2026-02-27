@@ -52,4 +52,5 @@ services:
       # 挂载本地模型文件（相对路径基于 docker-compose.yml 所在目录）
       - ./groundingdino_swint_ogc.pth:/GroundingDINO/weights/groundingdino_swint_ogc.pth:ro
       - ./sam_vit_h_4b8939.pth:/app/sam_vit_h_4b8939.pth:ro
-      - ./huggingface_cache:/root/.cache/huggingface:ro
+      # 注意：不要用 :ro，transformers 库即使在 OFFLINE 模式下也可能写锁文件
+      - ./huggingface_cache:/root/.cache/huggingface
