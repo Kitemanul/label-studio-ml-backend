@@ -30,6 +30,10 @@ services:
 
       - BOX_THRESHOLD=0.30
       - TEXT_THRESHOLD=0.25
+
+      # 禁止运行时从网络下载模型
+      - TRANSFORMERS_OFFLINE=1
+      - HF_DATASETS_OFFLINE=1
 # # Uncomment the following lines if you want to use GPU
 #      - NVIDIA_VISIBLE_DEVICES=all
 #    deploy:
@@ -45,3 +49,7 @@ services:
       - "./data/ml-backend:/data"
       - "./prompt.txt:/app/prompt.txt"
       - ./dino.py:/app/dino.py
+      # 挂载本地模型文件（路径改为你实际存放的位置）
+      - /你的路径/groundingdino_swint_ogc.pth:/GroundingDINO/weights/groundingdino_swint_ogc.pth:ro
+      - /你的路径/sam_vit_h_4b8939.pth:/app/sam_vit_h_4b8939.pth:ro
+      - /你的路径/huggingface_cache:/root/.cache/huggingface:ro
