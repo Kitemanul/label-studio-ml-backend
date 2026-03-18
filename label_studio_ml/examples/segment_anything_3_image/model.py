@@ -111,6 +111,8 @@ class SAM3MLBackend(LabelStudioMLBase):
                 for i in range(len(scores)):
                     mask = masks[i].squeeze().astype(np.uint8)
                     score = float(scores[i])
+                    if score < 0.8:
+                        continue
                     label_id = str(uuid4())[:4]
                     rle = brush.mask2rle(mask * 255)
                     results.append({
