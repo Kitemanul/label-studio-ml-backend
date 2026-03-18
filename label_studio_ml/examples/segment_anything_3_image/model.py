@@ -109,7 +109,7 @@ class SAM3MLBackend(LabelStudioMLBase):
                 image_height, image_width = masks.shape[-2:]
 
                 for i in range(len(scores)):
-                    mask = masks[i].astype(np.uint8)
+                    mask = masks[i].squeeze().astype(np.uint8)
                     score = float(scores[i])
                     label_id = str(uuid4())[:4]
                     rle = brush.mask2rle(mask * 255)
@@ -204,7 +204,7 @@ class SAM3MLBackend(LabelStudioMLBase):
         sorted_ind = np.argsort(scores)[::-1]
         masks = masks[sorted_ind]
         scores = scores[sorted_ind]
-        mask = masks[0, :, :].astype(np.uint8)
+        mask = masks[0].squeeze().astype(np.uint8)
         prob = float(scores[0])
 
         predictions = self._format_brush_results(
